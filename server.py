@@ -11,6 +11,10 @@ def index():
 def get_emotion():
     text_to_analyze = request.args.get("textToAnalyze", "")
     result = emotion_detector(text_to_analyze)
+
+    if result.get("dominant_emotion") is None:
+        return jsonify({"message": "Invalid text! Please try again!"})
+
     return jsonify(result)
 
 if __name__ == "__main__":
